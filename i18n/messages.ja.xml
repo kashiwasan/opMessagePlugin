@@ -50,6 +50,10 @@
         <source>Do you delete messages?</source>
         <target>削除してよろしいですか？</target>
       </trans-unit>
+      <trans-unit id="">
+        <source>Private Messages between %1% and %2%</source>
+        <target>%1% と %2%のプライベートメッセージ</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

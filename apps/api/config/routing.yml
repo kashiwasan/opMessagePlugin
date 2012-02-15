@@ -1,0 +1,14 @@
+message_list_json:
+  url: /plugin/message_list.json
+  param: { module: message, action: list, sf_format: json }
+  requirements: { sf_method: [get] }
+
+message_inbox_json:
+  url: /plugin/message_inbox.json
+  param: { module: message, action: listInbox, sf_format: json }
+  requirements: { sf_method: [get] }
+
+message_post_json:
+  url: /plugin/message_post.json
+  param: { module: message, action: post, sf_format: json }
+  requirements: { sf_method: [get] }

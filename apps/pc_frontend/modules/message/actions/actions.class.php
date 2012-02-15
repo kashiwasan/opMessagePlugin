@@ -29,6 +29,52 @@ class messageActions extends opMessagePluginMessageActions
   }
 
  /**
+  * Executes list action
+  *
+  * @param opWebRequest A request object
+  */
+  public function executeList(opWebRequest $request)
+  {
+    $this->forwardIf($request->isSmartphone(), 'message', 'smtList');
+    return parent::executeList($request);
+  }
+
+ /**
+  * Executes smtList action
+  *
+  * @param opWebRequest A request object
+  */
+  public function executeSmtList(opWebRequest $request)
+  {
+  }
+
+ /**
+  * Executes show action
+  *
+  * @param opWebRequest A request object
+  */
+  public function executeShow(opWebRequest $request)
+  {
+    $this->forwardIf($request->isSmartphone(), 'message', 'smtShow');
+    return parent::executeShow($request);
+  }
+
+ /**
+  * Executes send to frind action
+  *
+  * @param sfWebRequest A request object
+  */
+  public function executeSmtShow(opWebRequest $request)
+  {
+    $this->memberId = (int)$request['id'];
+    $this->member = Doctrine::getTable('Member')->find($this->memberId);
+    if (!$this->member || $this->member->getId() === $this->getUser()->getMember()->getId())
+    {
+      $this->forward404();
+    }
+  }
+
+ /**
   * Executes send to frind action
   *
   * @param sfWebRequest A request object

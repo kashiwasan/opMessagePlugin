@@ -124,4 +124,31 @@ class PluginMessageSendListTable extends Doctrine_Table
 
     return false;
   }
+
+  /**
+   * 受信メッセージ一覧 (API用)
+   * @param $memberId
+   * @ramam $count
+   * @param $maxId
+   * @param $sinceId
+   * @return MessageSendList object（の配列）
+   */
+  public function getReceiveMessageApi($memberId = null, $count = 20, $maxId = null, $sinceId = null)
+  {
+    $q = $this->addReceiveMessageQuery($this->createQuery(), $memberId);
+    if (!is_null($maxId))
+    {
+      $q->where('id <= ?', $maxId);
+    }
+    if (!is_null($sinceId))
+    {
+      $q->where('id > ?', $sinceId);
+    }
+    $q->limit($count);
+    $q->orderBy('created_at DESC');
+
+    $data = $q->execute();
+
+    return $data;
+  }
 }

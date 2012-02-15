@@ -9,3 +9,10 @@ all:
   has_layout:     on
   layout:         layoutB
   stylesheets: [/opMessagePlugin/css/message]
+
+smtListSuccess:
+  layout: smtLayoutHome
+
+smtShowSuccess:
+  layout: smtLayoutHome
+  stylesheets: [/opTimelinePlugin/css/blueandgreen.css]
