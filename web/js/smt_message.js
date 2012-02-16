@@ -8,7 +8,7 @@ $(function(){
 
 function messageListLoad()
 {
-  $.getJSON( 'http://local.kashiwa.jp/json.php?mode=detail' , function(json) {
+  $.getJSON( message.message_list_api , {apiKey: openpne.apiKey, member_id: message.member_id_to, order_by: 'ASC'}, function(json) {
     $result = $('#messageListTemplate').tmpl(json.data);
     $('#messageList').append($result);
     $('#messageListLoading').hide();
