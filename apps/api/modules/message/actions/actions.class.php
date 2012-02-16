@@ -31,39 +31,27 @@ class messageActions extends opJsonApiActions
     $count = $request->getParameter('count', 20);
     $maxId = $request->getParameter('max_id', null);
     $sinceId = $request->getParameter('since_id', null);
+    $this->detail = true;
 
-    switch ($request['type'])
+    $this->q = Doctrine::getTable('SendMessageData')
+      ->createQuery('m')
+      ->select('m.*')
+      ->addFrom('MessageSendList m2')
+      ->whereIn('m.member_id', array($this->getUser()->getMemberId(), $memberId))
+      ->andWhereIn('m2.member_id', array($this->getUser()->getMemberId(), $memberId))
+      ->andWhere('m.id = m2.message_id');
+    if ('ASC' === $request['order_by'])
     {
-      case 'send' :
-        $object = Doctrine::getTable('SendMessageData');
-        $function = 'getSendMessagePager';
-        $objectName = 'SendMessageData';
-        break;
-
-      case 'draft' :
-        $object = Doctrine::getTable('SendMessageData');
-        $function = 'getDraftMessagePager';
-        $objectName = 'SendMessageData';
-        break;
-
-      case 'dust' :
-        $object = Doctrine::getTable('DeletedMessage');
-        $function = 'getDeletedMessagePager';
-        $objectName = 'DeletedMessage';
-        break;
-
-      default :
-        $object = Doctrine::getTable('MessageSendList');
-        $function = 'getReceiveMessageApi';
-        $objectName = 'MessageSendList';
+      $this->q->orderBy('m.id ASC');
+    }
+    else
+    {
+      $this->q->orderBy('m.id DESC');
     }
 
-    $this->messages = call_user_func_array(array($object, $function), array(
-      $memberId,
-      $count,
-      $maxId,
-      $sinceId,
-    ));
+    $this->q->limit($count);
+
+    $this->messages = $this->q->execute();
 
     $this->setTemplate('array');
   }
