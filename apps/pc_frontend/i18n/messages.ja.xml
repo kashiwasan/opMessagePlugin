@@ -142,6 +142,10 @@
         <source>Delete messages</source>
         <target>メッセージを削除する</target>
       </trans-unit>
+      <trans-unit id="">
+        <source>Private Messages between %1% and %2%</source>
+        <target>%1% と %2%のプライベートメッセージ</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
