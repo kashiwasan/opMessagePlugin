@@ -67,6 +67,8 @@ var message = '.json_encode($json, defined('JSON_PRETTY_PRINT') ? JSON_PRETTY_PR
 </div>
 
 
-<div style="position: fixed; left: 30px; bottom: 0;">
-  <input type="text" name="text" value="text" /> <input type="submit" name="submit" class="btn primary small" value="送信" />
+<div style="position: fixed; left: 0px; bottom: 0; width: 100%; background: #000000;">
+<div class="center">
+  <input type="text" name="text" id="messageSendText" value="" style="height: 25px;"/> <input id="messageSendButton" type="submit" name="submit" class="btn primary small" value="送信" style="height: 25px; width: 45px; padding-top: 5px;" />
+</div>
 </div>

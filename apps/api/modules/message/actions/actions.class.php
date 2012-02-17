@@ -98,10 +98,13 @@ class messageActions extends opJsonApiActions
   */
   public function executePost(sfWebRequest $request)
   {
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Helper', 'Url', 'opUtil'));
     $this->forward400Unless(isset($request['member_id']), 'member_id parameter not specified.');
     $this->forward400Unless(is_numeric($request['member_id']), 'member_id parameter must be numeric.');
     $this->forward400Unless(isset($request['body']), 'body parameter not specified.');
     $memberId = $request['member_id'];
+    $memberTo = Doctrine::getTable('Member')->find($memberId);
+    $this->forward404Unless($memberTo, 'This member id does not exist.');
     $body = $request['body'];
     $subject = $request->getParameter('subject', null);
     $threadMessageId = (int)$request->getParameter('thread_message_id', 0);
