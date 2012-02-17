@@ -72,6 +72,7 @@ class messageActions extends opMessagePluginMessageActions
     {
       $this->forward404();
     }
+    $this->getResponse()->setDisplayMember($this->member);
   }
 
  /**

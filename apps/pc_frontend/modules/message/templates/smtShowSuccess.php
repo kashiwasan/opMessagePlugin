@@ -27,7 +27,7 @@ var message = '.json_encode($json, defined('JSON_PRETTY_PRINT') ? JSON_PRETTY_PR
     <tbody>
       <tr>
         <td valign="top">
-          <img src="${member.profile_image}" alt="" title="${member.name}" class="x-avatar">
+          <a href="${member.profile_url}"><img src="${member.profile_image}" alt="" title="${member.name}" class="x-avatar"></a>
           <div class="x-myBubble">
             <div class="x-indicator"></div>
             <table class="x-tableBubble" cellspacing="0" cellpadding="0">

@@ -42,7 +42,7 @@ function messageListLoadMore()
   $.getJSON( openpne.apiBase + 'plugin/message_list.json' , {'apiKey': openpne.apiKey, 'max_id': maxId, 'page_id': pageId,} , function(json) {
     $result = $('#messageReceiveListTemplate').tmpl(json.data);
     $('.divlink', $result).pushLink();
-    $('#messageReceiveList').append($result);
+    $('#messageReceiveList').html($result);
   });
   $('#messageReceiveListLoading').hide();
 }

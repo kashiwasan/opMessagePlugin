@@ -8,7 +8,7 @@ $(function(){
 
 function messageListLoad()
 {
-  $.getJSON( 'http://local.kashiwa.jp/json.php' , {'mode': 'list' } , function(json) {
+  $.getJSON( openpne.apiBase + 'plugin/message_inbox.json' , {apiKey: openpne.apiKey, detail: 'true'} , function(json) {
     $result = $('#messageReceiveListTemplate').tmpl(json.data);
     $('.divlink', $result).pushLink();
     $('#messageReceiveList').append($result);

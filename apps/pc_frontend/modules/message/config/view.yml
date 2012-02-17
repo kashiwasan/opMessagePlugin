@@ -14,5 +14,5 @@ smtListSuccess:
   layout: smtLayoutHome
 
 smtShowSuccess:
-  layout: smtLayoutHome
+  layout: smtLayoutMember
   stylesheets: [/opTimelinePlugin/css/blueandgreen.css]
