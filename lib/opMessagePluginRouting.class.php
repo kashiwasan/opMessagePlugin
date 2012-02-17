@@ -99,5 +99,22 @@ class opMessagePluginRouting
         array('id' => '\d+')
       )
     );
+
+    // settings for smartphone routing
+    $routing->prependRoute('messagelist_smartphone',
+      new sfRoute(
+        '/message/list',
+        array('module' => 'message', 'action' => 'list')
+      )
+    );
+
+    $routing->prependRoute('messageshow_smartphone',
+      new sfRoute(
+        '/message/show/:id',
+        array('module' => 'message', 'action' => 'show'),
+        array('id' => '\d+')
+      )
+    );
+
   }
 }
