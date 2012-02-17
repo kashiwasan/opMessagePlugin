@@ -39,19 +39,17 @@ class messageActions extends opJsonApiActions
       ->addFrom('MessageSendList m2')
       ->whereIn('m.member_id', array($this->getUser()->getMemberId(), $memberId))
       ->andWhereIn('m2.member_id', array($this->getUser()->getMemberId(), $memberId))
-      ->andWhere('m.id = m2.message_id');
-    if ('ASC' === $request['order_by'])
-    {
-      $this->q->orderBy('m.id ASC');
-    }
-    else
-    {
-      $this->q->orderBy('m.id DESC');
-    }
+      ->andWhere('m.id = m2.message_id')
+      ->orderBy('m.id DESC');
 
     $this->q->limit($count);
 
-    $this->messages = $this->q->execute();
+    $this->messages = $this->q->execute()->getData();
+
+    if ('ASC' === $request['order_by'])
+    {
+      krsort($this->messages);
+    }
 
     $this->setTemplate('array');
   }
@@ -73,14 +71,16 @@ class messageActions extends opJsonApiActions
     }
 
     $query = Doctrine::getTable('SendMessageData')->createQuery('m')
-      ->select('m.*, max(m.id) as m.message_id');
+      ->select('m.*, max(m.id) as m.message_id')
+      ->where('m.member_id <> ?', $this->getUser()->getMemberId());
+
     if ($request['max_id'])
     {
       $maxId = $request['max_id'];
-      $query->where('m.id <= ?', $maxId);
+      $query->andWhere('m.id <= ?', $maxId);
     }
 
-    $query->where('m.is_deleted = ?', 0);
+    $query->andWhere('m.is_deleted = ?', 0);
 
     $query->groupBy('m.member_id')
       ->orderBy('m.id DESC')
