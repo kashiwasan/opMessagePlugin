@@ -12,3 +12,8 @@ message_post_json:
   url: /plugin/message_post.json
   param: { module: message, action: post, sf_format: json }
   requirements: { sf_method: [get] }
+
+message_delete_json:
+  url: /plugin/message_delete.json
+  param: { module: message, action: delete, sf_format: json }
+  requirements: { sf_method: [get] }

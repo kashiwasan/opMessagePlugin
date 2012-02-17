@@ -114,13 +114,75 @@ class messageActions extends opJsonApiActions
     $message->setSubject($subject);
     $message->setBody($body);
     $message->setIsDeleted(0);
-    $message->setIsSend(1);
+    $message->setIsSend(true);
     $message->setThreadMessageId($threadMessageId);
     $message->setReturnMessageId($returnMessageId);
     $message->setMessageTypeId($messageTypeId);
     $message->setForeignId($foreignId);
     $message->save();
 
+    $messageSendList = new MessageSendList();
+    $messageSendList->setMemberId($memberId);
+    $messageSendList->setSendMessageData($message);
+    $messageSendList->save();
+    $messageSendList->free();
+    $message->free();
+
+    // opNotificationCenter::notify($this->getUser()->getMember(), $memberTo, $body, array('category' => 'message', 'url' => app_url_for('pc_frontend', 'messagelist_smartphone?id='.$this->getUser()->getMemberId())));
+
+    return $this->renderJSON(array('status' => 'success'));
+  }
+
+ /**
+  * Executes post action
+  *
+  * @param sfWebRequest $request A request object
+  */
+  public function executeDelete(sfWebRequest $request)
+  {
+    $this->forward400Unless(isset($request['message_id']), 'message_id parameter not specified.');
+    $this->forward400Unless(is_numeric($request['message_id']), 'message_id parameter must be numeric.');
+    $messageId = $request['message_id'];
+    $messageType = $request->getParameter('type', 'receive');
+    $complete = $request->getParameter('complete', false);
+
+    switch ($messageType) {
+      case 'receive':
+        $objectName = 'MessageSendList';
+        break;
+
+      case 'send':
+        $objectName = 'SendMessageData';
+        break;
+
+      case 'dust':
+        $objectName = 'DeletedMessage';
+        break;
+
+      default :
+        throw new LogicException();
+    }
+
+    $this->forward404Unless(
+      Doctrine::getTable('DeletedMessage')->deleteMessage(
+        $this->getUser()->getMemberId(),
+        $messageId,
+        $objectName
+      ),
+      'Invalid message id.'
+    );
+
+    if ('true' === $complete && 'dust' !== $messageType)
+    {  
+      $this->forward404Unless(
+        Doctrine::getTable('DeletedMessage')->deleteMessage(
+          $this->getUser()->getMemberId(),
+          $messageId,
+          'DeletedMessage'
+        ),
+        'Invalid message id.'
+      );
+    }
     return $this->renderJSON(array('status' => 'success'));
   }
 }
