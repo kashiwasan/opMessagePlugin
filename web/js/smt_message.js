@@ -14,7 +14,6 @@ $(function(){
       success: function(data) {
         if(data.status=='success'){
           $('#messageSendText').val('');
-          $('#messageReceiveList').html('');
           messageListLoad();
         }else{
           alert(data.message);
@@ -28,7 +27,7 @@ function messageListLoad()
 {
   $.getJSON( message.message_list_api , {apiKey: openpne.apiKey, member_id: message.member_id_to, order_by: 'ASC'}, function(json) {
     $result = $('#messageListTemplate').tmpl(json.data);
-    $('#messageList').append($result);
+    $('#messageList').html($result);
     $('#messageListLoading').hide();
   });
   $('#messageList').show();
