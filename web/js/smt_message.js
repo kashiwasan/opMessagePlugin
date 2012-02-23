@@ -1,6 +1,7 @@
 $(function(){
   $('#messageListLoading').show();  
   messageListLoad();
+  setInterval('messageListLoad()', 5000);
   $('#messageReceiveListLoadMoreButton').click(function(){
     messageListLoadMore();
   });

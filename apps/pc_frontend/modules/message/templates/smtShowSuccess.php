@@ -11,8 +11,7 @@ echo javascript_tag('
 var message = '.json_encode($json, defined('JSON_PRETTY_PRINT') ? JSON_PRETTY_PRINT : 0).';
 ')
 ?>
-<?php use_javascript('/opMessagePlugin/js/smt_message.js') ?>
-<?php include_javascripts() ?>
+<?php use_javascript('/opMessagePlugin/js/smt_message.js', 'last') ?>
 <div class="row" style="margin-bottom: 8px;">
   <div class="gadget_header span12"><?php echo __('Private Messages between %1% and %2%', array('%1%' => $member->getName(), '%2%' => $sf_user->getMember()->getName())); ?></div>
 </div>

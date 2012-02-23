@@ -1,4 +1,5 @@
-<script type="text/javascript" src="/opMessagePlugin/js/smt_message_list.js"></script>
+<?php use_helper('Javascript') ?>
+<?php use_javascript('/opMessagePlugin/js/smt_message_list.js', 'last') ?>
 <script type="text/javascript">
 $(document).ready(function(){
   $('.divlink').pushLink();
