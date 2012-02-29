@@ -1,0 +1,6 @@
+smtSendMessageLink:
+  caption:
+    ja_JP: "メッセージ送信リンク"
+  description:
+    ja_JP: "メンバーにメッセージを送信する為のリンクを表示させます。"
+  component: [message, smtSendMessageLink]

@@ -1,0 +1,6 @@
+Gadget:
+  gadget_information:
+    type: "smartphoneProfileContents"
+    name: "smtSendMessageLink"
+    sort_order: 27
+
