@@ -2,7 +2,7 @@
 <?php use_javascript('/opMessagePlugin/js/smt_message_list.js', 'last') ?>
 <script type="text/javascript">
 $(document).ready(function(){
-  $('.divlink').pushLink();
+  $('.divlink').pushLink({isDisableRead: true,});
 });
 </script>
 
