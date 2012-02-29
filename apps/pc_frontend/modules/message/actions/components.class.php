@@ -17,9 +17,9 @@
  */
 class messageComponents extends opMessagePluginMessageComponents
 {
-  public function executeSmtSendMessageLink($request)
+  public function executeSmtSendMessageLink(sfWebRequest $request)
   {
-    $this->id = $reqeust->getParameter('id');
-    $this->member = Doctrine::getTable('Member')->find($id);
+    $this->id = $request->getParameter('id', $this->getUser()->getMemberId());
+    $this->member = Doctrine::getTable('Member')->find($this->id);
   }
 }
