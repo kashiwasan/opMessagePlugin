@@ -10,7 +10,7 @@ function messageListLoad()
 {
   $.getJSON( openpne.apiBase + 'plugin/message_inbox.json' , {apiKey: openpne.apiKey, detail: 'true'} , function(json) {
     $result = $('#messageReceiveListTemplate').tmpl(json.data);
-    $('.divlink', $result).pushLink();
+    $('.divlink', $result).pushLink({isDisableRead: true,});
     $('#messageReceiveList').append($result);
     $('#messageReceiveListLoading').hide();
   });
@@ -24,7 +24,7 @@ function messageListLoadMore()
   var pageId = $('#messageReceiveListLoadMoreButton').attr('data-message-page-id');
   $.getJSON( openpne.apiBase + 'plugin/message_list.json' , {'apiKey': openpne.apiKey, 'max_id': maxId, 'page_id': pageId,} , function(json) {
     $result = $('#messageReceiveListTemplate').tmpl(json.data);
-    $('.divlink', $result).pushLink();
+    $('.divlink', $result).pushLink({isDisableRead: true,});
     $('#messageReceiveList').append($result);
   });
   $('#messageReceiveListLoading').hide();
