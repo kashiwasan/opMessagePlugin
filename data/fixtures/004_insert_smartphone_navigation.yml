@@ -1,0 +1,11 @@
+Navigation:
+  smartphone_default_navigation_message_list:
+    type: "smartphone_default"
+    uri: "message/list"
+    sort_order: 0
+    Translation:
+      ja_JP:
+        caption: "受信メッセージ"
+      en: 
+        caption: "Message Receive List"
+
