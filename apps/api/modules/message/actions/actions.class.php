@@ -131,8 +131,6 @@ class messageActions extends opJsonApiActions
     $messageSendList->free();
     $message->free();
 
-    // opNotificationCenter::notify($this->getUser()->getMember(), $memberTo, $body, array('category' => 'message', 'url' => app_url_for('pc_frontend', 'messagelist_smartphone?id='.$this->getUser()->getMemberId())));
-
     return $this->renderJSON(array('status' => 'success'));
   }
 
